@@ -1,1 +1,33 @@
+700772580
+Hamsini katla
+
+4.1 QUESTIONS TO ANSWER
+### 1. What patterns do you observe in the training and validation accuracy curves?  
+    Training and validation accuracy curves show how well a model is learning over time.
+    Training accuracy usually increases over time as the model learns the patterns in the data.
+    Validation accuracy may also improve initially but can start to fluctuate or decrease if the model overfits. 
+    If training accuracy is much higher than validation accuracy, it indicates overfitting.
+    If both training and validation accuracy increase together, the model is learning well.
+    A small gap between them suggests good generalization.
+
+
+### 2. How can you use TensorBoard to detect overfitting?  
+
+    TensorBoard provides visualization tools to track both training and validation loss. 
+    If training loss keeps decreasing while validation loss starts increasing, it means the model is overfitting. 
+    You can also check accuracy plots—if validation accuracy stagnates or drops while training accuracy rises, overfitting is happening. 
+    Comparing different training runs in TensorBoard helps in choosing better hyperparameters and regularization techniques.
+
+
+### 3. What happens when you increase the number of epochs?  
+    An epoch is one complete pass through the entire training dataset by the model.
+    Increasing the number of epochs allows the model to learn more patterns in the training data. 
+    It helps the model learn better, improving both training and validation accuracy.
+    Initially, both training and validation accuracy may improve, but after a certain point, the model may start overfitting.
+    This leading to poor generalization on unseen data. 
+    If the validation accuracy stops improving or decreases while training accuracy remains high, it suggests overfitting. 
+    Proper tuning of the number of epochs, along with techniques like dropout or batch normalization, can help balance learning and generalization.
+
+
+
 
