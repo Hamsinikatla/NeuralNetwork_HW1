@@ -300,6 +300,99 @@ This project demonstrates how different optimization techniques affect model per
 # 4. Train a Neural Network and Log to TensorBoard
 
 
+# Model Performance on Digits Dataset
+
+## Overview
+This project trains an MLP classifier using the Adam optimizer on the MNIST-like Digits dataset. The goal is to evaluate the model's performance by analyzing training and testing accuracy trends.
+
+## Installation Instructions
+To run this script, ensure you have the necessary dependencies installed. You can install them using:
+```bash
+pip install numpy matplotlib scikit-learn
+```
+
+## Usage Guide
+1. Save the script as `mlp_digits.py`.
+2. Run the script using:
+```bash
+python mlp_digits.py
+```
+3. The script will train the model, compute accuracy, and display a bar chart comparing training and testing accuracy.
+
+## Code Explanation
+### Step 1: Load and Preprocess the Data
+```python
+from sklearn.datasets import load_digits
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler
+
+digits = load_digits()
+X, y = digits.data / 16.0, digits.target  # Normalize data
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+scaler = StandardScaler()
+X_train = scaler.fit_transform(X_train)
+X_test = scaler.transform(X_test)
+```
+- Loads the MNIST-like Digits dataset.
+- Normalizes and standardizes the data.
+- Splits the dataset into training and testing sets.
+
+### Step 2: Define and Train the Model
+```python
+from sklearn.neural_network import MLPClassifier
+
+model = MLPClassifier(hidden_layer_sizes=(128,), activation='relu', solver='adam', max_iter=5, random_state=42)
+model.fit(X_train, y_train)
+```
+- Creates an MLP classifier with 128 hidden units using the Adam optimizer.
+- Trains the model on the dataset.
+
+### Step 3: Evaluate the Model
+```python
+from sklearn.metrics import accuracy_score
+
+train_acc = accuracy_score(y_train, model.predict(X_train))
+test_acc = accuracy_score(y_test, model.predict(X_test))
+```
+- Computes accuracy scores for both training and testing data.
+
+### Step 4: Plot Accuracy Trends
+```python
+import matplotlib.pyplot as plt
+
+labels = ['Train Accuracy', 'Test Accuracy']
+values = [train_acc, test_acc]
+
+plt.figure(figsize=(6, 4))
+plt.bar(labels, values, color=['blue', 'orange'])
+plt.ylabel('Accuracy')
+plt.title('Model Performance on Digits Dataset')
+plt.ylim(0, 1)
+plt.show()
+```
+- Visualizes the accuracy results using a bar chart.
+
+## Output
+- The script prints training and testing accuracy.
+- A bar chart is displayed, comparing both accuracy values.
+
+## Summary of Outputs
+1. **Training Accuracy:** Indicates how well the model performs on training data.
+2. **Testing Accuracy:** Evaluates model generalization on unseen data.
+3. **Visualization:** A bar chart to compare training vs. testing accuracy.
+
+## Key Learnings and Features
+- **MLPClassifier with Adam Optimizer** for digit classification.
+- **Normalization and Standardization** enhance model performance.
+- **Comparison of Training vs. Testing Accuracy** to check for overfitting.
+- **Visualization** helps analyze performance trends effectively.
+
+## Conclusion
+This project demonstrates training an MLP classifier on a digit classification dataset. The Adam optimizer ensures efficient learning, and accuracy trends help evaluate model performance.
+
+
+
 
 
 
