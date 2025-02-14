@@ -193,6 +193,113 @@ This project illustrates the importance of choosing the right loss function for 
 
 # 3.Train a Model with Different Optimizers
 
+# Comparison of Adam vs. SGD Optimizers on Digits Dataset
+
+## Overview
+This project implements and compares two optimization techniques, **Adam** and **SGD**, for training an MLP classifier on the MNIST-like Digits dataset. The goal is to evaluate the effectiveness of these optimizers by analyzing training and validation accuracy trends.
+
+## Installation Instructions
+To run this script, ensure you have the necessary dependencies installed. You can install them using:
+```bash
+pip install numpy matplotlib scikit-learn
+```
+
+## Usage Guide
+1. Save the script as `optimizer_comparison.py`.
+2. Run the script using:
+```bash
+python optimizer_comparison.py
+```
+3. The script will train the models, compute accuracy, and display a bar chart comparing the performance of Adam and SGD.
+
+## Code Explanation
+### Step 1: Load and Preprocess the Data
+```python
+from sklearn.datasets import load_digits
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler
+
+digits = load_digits()
+X, y = digits.data / 16.0, digits.target  # Normalize data
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+scaler = StandardScaler()
+X_train = scaler.fit_transform(X_train)
+X_test = scaler.transform(X_test)
+```
+- Loads the MNIST-like Digits dataset.
+- Normalizes and standardizes the data.
+- Splits the dataset into training and testing sets.
+
+### Step 2: Train MLP Models with Adam and SGD Optimizers
+```python
+from sklearn.neural_network import MLPClassifier
+
+adam_model = MLPClassifier(hidden_layer_sizes=(128,), activation='relu', solver='adam', max_iter=20, random_state=42)
+sgd_model = MLPClassifier(hidden_layer_sizes=(128,), activation='relu', solver='sgd', learning_rate_init=0.01, max_iter=20, random_state=42)
+
+adam_model.fit(X_train, y_train)
+sgd_model.fit(X_train, y_train)
+```
+- Creates two MLP classifiers using **Adam** and **SGD** optimizers.
+- Trains both models on the dataset.
+
+### Step 3: Compute Training and Validation Accuracy
+```python
+from sklearn.metrics import accuracy_score
+
+adam_train_acc = accuracy_score(y_train, adam_model.predict(X_train))
+adam_val_acc = accuracy_score(y_test, adam_model.predict(X_test))
+sgd_train_acc = accuracy_score(y_train, sgd_model.predict(X_train))
+sgd_val_acc = accuracy_score(y_test, sgd_model.predict(X_test))
+```
+- Evaluates training and validation accuracy for both models.
+
+### Step 4: Compare Training and Validation Accuracy Trends
+```python
+import matplotlib.pyplot as plt
+
+labels = ['Adam Train', 'Adam Val', 'SGD Train', 'SGD Val']
+values = [adam_train_acc, adam_val_acc, sgd_train_acc, sgd_val_acc]
+
+plt.figure(figsize=(8, 5))
+plt.bar(labels, values, color=['blue', 'orange', 'blue', 'orange'])
+plt.ylabel('Accuracy')
+plt.title('Comparison of Adam vs. SGD on Digits Dataset')
+plt.show()
+```
+- Creates a bar chart to visualize the accuracy comparison between Adam and SGD optimizers.
+
+## Output
+- The script prints training and validation accuracy for both optimizers.
+- A bar chart is displayed, comparing Adam and SGD performance.
+
+## Summary of Outputs
+1. **Adam Optimizer:**
+   - Higher validation accuracy, indicating better generalization.
+   - Fast convergence.
+2. **SGD Optimizer:**
+   - May overfit or underperform depending on learning rate.
+   - Slower convergence compared to Adam.
+
+## Key Learnings and Features
+- **Adam generally outperforms SGD** in terms of validation accuracy.
+- **SGD may require careful tuning** of the learning rate for optimal performance.
+- **Data Preprocessing Matters:** Standardization improves the training process.
+- **Bar Chart Visualization** helps compare optimizer performance effectively.
+
+## Conclusion
+This project demonstrates how different optimization techniques affect model performance. Adam provides better results with minimal tuning, whereas SGD may require hyperparameter adjustments for competitive performance. The visualization aids in understanding the effectiveness of each optimizer.
+
+
+
+
+
+
+
+# 4. Train a Neural Network and Log to TensorBoard
+
+
 
 
 
