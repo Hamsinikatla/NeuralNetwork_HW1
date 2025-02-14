@@ -4,7 +4,7 @@
 Hamsini katla 
 
 
-1.	Tensor Manipulations & Reshaping
+1.	Tensor Manipulations & Reshaping.
 
 In this walkthrough, I'll explain the TensorFlow code step by step. 
 Overview 
